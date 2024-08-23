@@ -70,7 +70,7 @@ cmake_args=["cmake", ".", "-B"+build_dir, "-H"+os.getcwd()]
 subprocess.check_call(cmake_args,cwd=os.getcwd())
 
 # Invoke cmake --build to build the project
-subprocess.check_call(['cmake', '--build', build_dir, '--config', 'Release', '--parallel'])
+subprocess.check_call(['cmake', '--build', build_dir, '--config', 'Debug', '--parallel'])
 
 # Install the built binaries
 subprocess.check_call(['cmake', '--install', build_dir])

@@ -404,3 +404,24 @@ py::object PyRocVideoDecoder::PyGetDecoderSessionOverHead(int session_id) {
 }
 
 #endif
+
+
+void PyRocDecThreadPoolInitializer(py::module& m) {
+        py::class_<PyRocDecThreadPool> (m, "PyRocDecThreadPool")
+        .def(py::init<int>(), py::arg("nthreads") = 1)
+        .def("JoinThreads",&PyRocDecThreadPool::PyJoinThreads)
+        .def("ExecuteJob",&PyRocDecThreadPool::PyExecuteJob);
+}
+
+PyRocDecThreadPool::~PyRocDecThreadPool () {}
+
+void PyRocDecThreadPool::PyJoinThreads() {
+    JoinThreads();
+}
+
+void PyRocDecThreadPool::PyExecuteJob(std::function<void()> &func) {
+    if(func) {
+        std::cout << "calling the C++ executeJob function" << std:: endl;
+        ExecuteJob(func);
+    }
+}

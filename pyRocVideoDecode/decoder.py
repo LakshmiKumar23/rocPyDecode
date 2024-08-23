@@ -21,6 +21,7 @@
 import rocPyDecode as rocpydec
 import rocPyDecode.decTypes as dectypes
 import numpy as np
+import threading
 
 
 def GetRocDecCodecID(codec_id) -> dectypes.rocDecVideoCodec:
@@ -145,3 +146,26 @@ class decoder(object):
             return self.viddec.GetDecoderSessionOverHead(session_id)
         else:
             return None
+
+class threadpool(object):
+    def __init__(
+            self,
+            nthreads):
+        self.viddecthreadpool = rocpydec.PyRocDecThreadPool(nthreads)
+        self.result = {}
+
+    def JoinThreads(self):
+        self.viddecthreadpool.JoinThreads()
+
+    def ExecuteJob(self, func, *args, **kwargs):
+        # Wrap the function to include Python args
+        def wrapperFunc():
+            thread_id = threading.get_ident()
+            print("thread_id from python -- ", thread_id)
+            self.result[thread_id] = func(*args, **kwargs)
+            print("result from wrapped FUcn -- ", self.result[thread_id])
+        self.viddecthreadpool.ExecuteJob(wrapperFunc)
+
+    def GetThreadResult(self, thread_id):
+        return self.result.get(thread_id, None)
+

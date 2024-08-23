@@ -77,3 +77,6 @@ void PyRocVideoDecoderInitializer(py::module& m);
 
 // defined in BufferInterface.cpp
 void PyExportInitializer(py::module& m);
+
+// defined in roc_pyvideodecoder.cpp
+void PyRocDecThreadPoolInitializer(py::module& m);

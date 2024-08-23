@@ -129,3 +129,11 @@ class PyRocVideoDecoder : public RocVideoDecoder {
         size_t resized_image_size_in_bytes = 0;
         OutputSurfaceInfo *resized_surf_info = nullptr;
 };
+
+class PyRocDecThreadPool : public RocDecThreadPool {
+    public:
+        PyRocDecThreadPool (int nthreads) : RocDecThreadPool(nthreads) {}
+        ~PyRocDecThreadPool();
+        void PyJoinThreads();
+        void PyExecuteJob(std::function<void()> &func);
+};

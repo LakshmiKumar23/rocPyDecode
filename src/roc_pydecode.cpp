@@ -90,6 +90,12 @@ PYBIND11_MODULE(rocPyDecode, m) {
     // --------------------------------------
     PyRocVideoDecoderInitializer(m);
 
+    // --------------------------------------
+    // AMD Video Decoder Thread Pool 'PyRocDecThreadPool'
+    // --------------------------------------
+    PyRocDecThreadPoolInitializer(m);
+
+
     // ----------------
     // Structures:
     // ----------------
