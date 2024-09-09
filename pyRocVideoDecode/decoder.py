@@ -172,3 +172,5 @@ class threadpool(object):
         print ("from get thread results -- ", self.result.get(thread_id))
         return self.result.get(thread_id)
 
+    def IsCodecSupported(self, device_id, codec_id, bit_depth):
+        return self.viddec.IsCodecSupported(device_id, codec_id, bit_depth)
