@@ -153,9 +153,10 @@ class threadpool(object):
             nthreads):
         self.viddecthreadpool = rocpydec.PyRocDecThreadPool(nthreads)
         self.result = {}
+        self.num_threads = nthreads
 
     def JoinThreads(self):
-        self.viddecthreadpool.JoinThreads()
+        return self.viddecthreadpool.JoinThreads()
 
     def ExecuteJob(self, func, *args, **kwargs):
         # Wrap the function to include Python args
@@ -164,8 +165,10 @@ class threadpool(object):
             print("thread_id from python -- ", thread_id)
             self.result[thread_id] = func(*args, **kwargs)
             print("result from wrapped FUcn -- ", self.result[thread_id])
-        self.viddecthreadpool.ExecuteJob(wrapperFunc)
+        print ("in decoder.py -- num_threads -- ", self.num_threads)
+        return self.viddecthreadpool.ExecuteJob(wrapperFunc, self.num_threads)
 
     def GetThreadResult(self, thread_id):
-        return self.result.get(thread_id, None)
+        print ("from get thread results -- ", self.result.get(thread_id))
+        return self.result.get(thread_id)
 

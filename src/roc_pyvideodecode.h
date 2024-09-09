@@ -135,5 +135,5 @@ class PyRocDecThreadPool : public RocDecThreadPool {
         PyRocDecThreadPool (int nthreads) : RocDecThreadPool(nthreads) {}
         ~PyRocDecThreadPool();
         void PyJoinThreads();
-        void PyExecuteJob(std::function<void()> &func);
+        void PyExecuteJob(std::function<void()> &func, int nthreads);
 };

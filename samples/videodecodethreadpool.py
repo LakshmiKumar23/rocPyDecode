@@ -173,14 +173,16 @@ if __name__ == "__main__":
     #p_fps = [0.0 for i in range(num_threads)]
     result = []
 
-    for i in range(0, num_threads):
-        thread_pool.ExecuteJob(DecProc, input_file_path, v_device_id[i])
+    #for i in range(0, num_threads):
+    thread_pool.ExecuteJob(DecProc, input_file_path, v_device_id[i])
     
     print("info: done with executing jobs...waiting to join")
-    thread_pool.JoinThreads()
+    #thread_pool.JoinThreads()
 
+    print("info: keys -- ", thread_pool.result.keys())
     for thread_id in thread_pool.result.keys():
-        result.append(thread_pool.GetThreadResult(thread_id))
+        temp = thread_pool.GetThreadResult(thread_id)
+        result.append(temp)
     print (result)
 
     print("info: done with join threads")

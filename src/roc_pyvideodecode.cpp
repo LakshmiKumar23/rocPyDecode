@@ -416,12 +416,15 @@ void PyRocDecThreadPoolInitializer(py::module& m) {
 PyRocDecThreadPool::~PyRocDecThreadPool () {}
 
 void PyRocDecThreadPool::PyJoinThreads() {
-    JoinThreads();
+    return JoinThreads();
 }
 
-void PyRocDecThreadPool::PyExecuteJob(std::function<void()> &func) {
+void PyRocDecThreadPool::PyExecuteJob(std::function<void()> &func, int nthreads) {
     if(func) {
-        std::cout << "calling the C++ executeJob function" << std:: endl;
-        ExecuteJob(func);
+        std::cout << "calling the C++ executeJob function with nthreads = " << nthreads << std:: endl;
+        for (int i = 0; i < nthreads; i++)
+            ExecuteJob(func);
+
+        //PyJoinThreads();
     }
 }

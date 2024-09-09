@@ -50,7 +50,7 @@ struct PyPacketData {
     int       pkt_flags;
     int64_t   frame_pts;
     int64_t   frame_size;
-    uintptr_t frame_adrs;       // yuv frame address
+    uintptr_t frame_adrs;       // yuv frame address; this will be the demuxed output = buffer_ptr from av
     uintptr_t frame_adrs_rgb;   // rgb frame address
     uintptr_t frame_adrs_resized; // new resized yuv frame
     std::shared_ptr<BufferInterface> extBuf;
